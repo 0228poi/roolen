@@ -1,0 +1,2395 @@
+# QUAXAR Design System
+
+> 정보보안 위협 인텔리전스 플랫폼 **QUAXAR**의 디자인 시스템입니다.
+> Figma 파일 자동 분석 + UI 스크린샷 분석을 통해 추출한 토큰, 컴포넌트 규격, 사용 가이드를 포함합니다.
+
+---
+
+## 목차
+
+1. [브랜드 & 톤](#1-브랜드--톤)
+2. [컬러 시스템](#2-컬러-시스템)
+3. [타이포그래피](#3-타이포그래피)
+4. [스페이싱 & 사이징](#4-스페이싱--사이징)
+5. [Border & Shadow](#5-border--shadow)
+6. [레이아웃](#6-레이아웃)
+7. [컴포넌트](#7-컴포넌트)
+   - [Sidebar (Accordion + Collapsible)](#71-sidebar-accordion)
+   - [TopNav](#72-topnav)
+   - [Badge](#73-badge)
+   - [Button](#74-button)
+   - [Card](#75-card)
+   - [Table](#76-table)
+   - [Section Heading](#77-section-heading)
+   - [Code Block](#78-code-block)
+   - [Input](#79-input)
+   - [Tag / Chip](#710-tag--chip)
+   - [Chart](#711-chart)
+8. [대시보드 콘텐츠 영역](#8-대시보드-콘텐츠-영역)
+   - [Summary Bar](#81-summary-bar)
+   - [KPI Trend Card](#82-kpi-trend-card)
+   - [Risk Factor Section](#83-risk-factor-section)
+   - [Report / Intelligence Section](#84-report--intelligence-section)
+   - [Trend Charts Section](#85-trend-charts-section)
+   - [Digital Risk Protection Section](#86-digital-risk-protection-section)
+   - [Attack Surface Section](#87-attack-surface-section)
+   - [공통 패턴](#88-공통-패턴)
+9. [ASM > Asset 페이지](#9-asm--asset-페이지)
+   - [페이지 구조](#91-페이지-구조)
+   - [Filter Panel](#92-filter-panel)
+   - [Search Bar](#93-search-bar)
+   - [List Controls](#94-list-controls)
+   - [Asset Card](#95-asset-card)
+   - [Asset Card 상태 변형](#96-asset-card-상태-변형)
+10. [CSS 변수 정의](#10-css-변수-정의)
+11. [Tailwind Config](#11-tailwind-config)
+
+---
+
+## 1. 브랜드 & 톤
+
+| 항목 | 내용 |
+|------|------|
+| **제품명** | QUAXAR |
+| **제조사** | S2W Inc. |
+| **분류** | 정보보안 위협 인텔리전스 플랫폼 |
+| **분위기** | 전문적(Professional), 신뢰(Trust), 기술적(Technical) |
+| **테마** | 다크 사이드바 + 밝은 콘텐츠 영역 (Light content / Dark nav) |
+| **아이덴티티** | 딥 퍼플 계열 + 흰 배경의 하이 콘트라스트 구성 |
+
+**로고 규칙**
+- `Q` 아이콘 → `#7c4dff` 배경, `font-weight: 800`, `color: #fff`
+- `QUAXAR` 워드마크 → `Pretendard ExtraBold`, `#ffffff`, `letter-spacing: 0.04em`
+
+**AI 어시스턴트 브랜딩**
+- 명칭: `QUAXAR Assistant` / 서브: `Check Out Briefing!`
+- 아이콘: ✦, 배경 `#7c4dff` 원형, 사이드바 하단 고정
+
+---
+
+## 2. 컬러 시스템
+
+> 실제 구현 기준 (대시보드 + Asset 페이지 스크린샷 분석 반영)
+
+### Primary Palette
+
+| 토큰 | Hex | 용도 |
+|------|-----|------|
+| `--color-accent` | `#7c4dff` | 주요 액션 버튼, 링크, 활성 상태, 검색 버튼 |
+| `--color-accent-faded` | `rgba(124,77,255,0.1)` | 배지 배경, 호버 배경 |
+| `--color-accent-border` | `rgba(124,77,255,0.25)` | 액센트 보더 |
+| `--color-sidebar-bg` | `#1e0f44` | 사이드바 전체 배경 |
+| `--color-sidebar-border` | `rgba(255,255,255,0.07)` | 사이드바 내부 구분선 |
+| `--color-nav-active-bg` | `rgba(124,77,255,0.12)` | 네비 활성 항목 배경 |
+| `--color-nav-active-text` | `#a78bfa` | 서브 메뉴 활성 텍스트 |
+| `--color-nav-section-active` | `#9d7ff5` | 섹션 헤더 활성 텍스트 |
+
+### Neutral / Surface
+
+| 토큰 | Hex | 용도 |
+|------|-----|------|
+| `--color-bg` | `#f0eef8` | 전체 페이지 배경 (연보라 계열) |
+| `--color-surface` | `#ffffff` | 카드, 패널, TopNav 배경 |
+| `--color-surface-subtle` | `rgba(246,246,246,0.6)` | 테이블 헤더, 필터 패널 섹션 |
+| `--color-border` | `rgba(0,0,0,0.07)` | 카드/컴포넌트 기본 테두리 |
+| `--color-border-mid` | `rgba(0,0,0,0.1)` | 버튼, 인풋, 강조 테두리 |
+
+### Text
+
+| 토큰 | Hex | 용도 |
+|------|-----|------|
+| `--color-text-primary` | `#2d2240` | 페이지 타이틀, 카드 제목, 주요 데이터 |
+| `--color-text-secondary` | `#5a5870` | 필터 레이블, 일반 본문 |
+| `--color-text-muted` | `#9b99a8` | 섹션 레이블 (uppercase), 컬럼 헤더 |
+| `--color-text-hint` | `#b0a8be` | 날짜, placeholder, 보조 설명 |
+| `--color-text-inverted` | `#ffffff` | 사이드바 내 텍스트 |
+
+### Semantic (상태값)
+
+| 토큰 | Hex | 용도 |
+|------|-----|------|
+| `--color-danger` | `#e53e3e` | Critical / Extreme 배지, CVE 고위험 점수 |
+| `--color-warning` | `#d97706` | High / Medium 배지, CVE 중위험 점수 |
+| `--color-success` | `#059669` | Low 배지, CVE 저위험 점수, 해결 상태 |
+| `--color-info` | `#0891b2` | 정보성 배지, ISP 태그 (일부) |
+| `--color-code-bg` | `#0f172b` | 코드 블록 배경 |
+
+### Severity 색상 규칙 (전체 공통)
+
+| 등급 | 배경 | 텍스트 | 적용 범위 |
+|------|------|--------|-----------|
+| Critical / Extreme | `#e53e3e` | `#fff` | 배지, CVE 점수 4.0+ |
+| High / Major | `#dd6b20` | `#fff` | 배지, CVE 점수 3.0~3.9 |
+| Medium / Moderate | transparent | `#d97706` | 아웃라인 배지, CVE 점수 2.0~2.9 |
+| Low / Minor | transparent | `#059669` | 아웃라인 배지, CVE 점수 ~1.9 |
+| None | transparent | `#9b99a8` | 아웃라인 배지 |
+| Inactive | `rgba(0,0,0,0.06)` | `#9b99a8` | 비활성 자산 상태 |
+
+### Feature 태그 색상 규칙
+
+| 태그 | 배경 | 텍스트 | 보더 |
+|------|------|--------|------|
+| VPN | `rgba(124,77,255,0.1)` | `#7c4dff` | `rgba(124,77,255,0.25)` |
+| DEV | `rgba(6,182,212,0.1)` | `#0891b2` | `rgba(6,182,212,0.25)` |
+| Login | `rgba(5,150,105,0.1)` | `#065f46` | `rgba(5,150,105,0.25)` |
+| Internal | `rgba(217,119,6,0.1)` | `#92400e` | `rgba(217,119,6,0.25)` |
+| Admin | `rgba(229,62,62,0.1)` | `#9b1c1c` | `rgba(229,62,62,0.25)` |
+
+### Chart Colors
+
+| 토큰 | Hex | 용도 |
+|------|-----|------|
+| `--color-chart-1` | `#7c4dff` | IP Address, 1차 시리즈 |
+| `--color-chart-2` | `#06b6d4` | Domain, 2차 시리즈 |
+| `--color-chart-3` | `#f59e0b` | File Hash, 3차 시리즈 |
+| `--color-chart-4` | `#f43f5e` | URL, 4차 시리즈 |
+| `--color-chart-5` | `#10b981` | 5차 시리즈 |
+
+### ISP 배지 색상
+
+| ISP | 배경 | 텍스트 | 보더 |
+|-----|------|--------|------|
+| Azure | `rgba(0,120,212,0.06)` | `#0078d4` | `rgba(0,120,212,0.3)` |
+
+---
+
+## 3. 타이포그래피
+
+### 폰트 패밀리
+
+| 역할 | 폰트 | 용도 |
+|------|------|------|
+| **Primary** | `Pretendard` | UI 전반 (한/영 모두) |
+| **Secondary** | `Inter` | 데이터 값, 코드, 차트 레이블 |
+
+> Pretendard는 `@font-face` 또는 CDN으로 로드합니다.
+> ```html
+> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+> ```
+
+### 폰트 웨이트
+
+| 이름 | 값 |
+|------|----|
+| Regular | 400 |
+| Medium | 500 |
+| SemiBold | 600 |
+| Bold | 700 |
+| ExtraBold | 800 |
+
+### 폰트 사이즈 스케일
+
+피그마 원본은 0.8배 스케일로 설계되었습니다. 아래는 정규화된 실사용 값입니다.
+
+| 토큰 | 피그마 원본 | 정규화 값 | 용도 |
+|------|------------|-----------|------|
+| `--text-xs` | 9.601px | 10px | 차트 레이블, 코드 내 보조 |
+| `--text-sm` | 11.201px | 11px | 대부분의 UI 텍스트, 버튼, 레이블 |
+| `--text-base` | 12.801px | 13px | 배지 텍스트, 태그 |
+| `--text-md` | 16.002px | 16px | 섹션 헤딩, 카드 제목 |
+| `--text-xl` | 19.202px | 19px | 서브 헤딩 |
+| `--text-2xl` | 28.803px | 29px | 페이지 타이틀 (H1) |
+
+### 라인 높이
+
+| 폰트 사이즈 | 라인 높이 |
+|------------|----------|
+| 10~11px | 16px |
+| 13px | 16px |
+| 16px | 22px |
+| 29px | 36px |
+
+### 텍스트 스타일 조합
+
+| 스타일 이름 | 폰트 | 사이즈 | 웨이트 | 색상 | 용도 |
+|-------------|------|--------|--------|------|------|
+| `page-title` | Pretendard | 29px | ExtraBold | `#3d3d3d` | 리포트 제목 |
+| `section-heading` | Pretendard | 16px | Bold | `#3d3d3d` | 섹션 헤더 |
+| `card-title` | Pretendard | 11px | Bold | `#3d3d3d` | 카드 제목 |
+| `body` | Pretendard | 11px | Regular | `rgba(61,61,61,0.9)` | 본문 단락 |
+| `label` | Pretendard | 11px | Medium | `#3d3d3d` | UI 레이블 |
+| `caption` | Inter | 10px | Regular | `#9b9b9b` | 보조 정보, 날짜 |
+| `data` | Inter | 11px | Regular | `#3d3d3d` | 테이블 데이터 |
+| `code` | Inter | 11px | Regular | `#f8fafc` | 코드 블록 내부 |
+| `nav-item` | Pretendard | 11px | Regular | `#ffffff` | 사이드바 메뉴 |
+| `nav-item-active` | Pretendard | 11px | Medium | `#ffffff` | 활성 메뉴 |
+
+---
+
+## 4. 스페이싱 & 사이징
+
+기본 단위는 **4px** (피그마 원본의 3.2px를 정규화)입니다.
+
+| 토큰 | 값 | 피그마 원본 |
+|------|----|------------|
+| `--space-1` | 4px | 3.2px |
+| `--space-2` | 8px | 6.4px |
+| `--space-3` | 12px | 9.6px |
+| `--space-4` | 16px | 12.8px |
+| `--space-5` | 20px | 16px |
+| `--space-6` | 24px | 19.2px |
+| `--space-7` | 28px | 22.4px |
+| `--space-8` | 32px | 25.6px |
+| `--space-10` | 40px | 32px |
+| `--space-12` | 48px | 38.4px |
+| `--space-16` | 64px | 51.2px |
+
+### 컴포넌트 사이징
+
+| 컴포넌트 | 높이 | 패딩 (좌우) |
+|----------|------|------------|
+| Button (sm) | 26px | 9px |
+| Button (md) | 29~30px | 10~16px |
+| Input (search) | 26~29px | 9~10px |
+| Badge (tag/feat) | 자동 | 5~7px |
+| Table Row | 28~31px | 12~14px |
+| Table Header | 26~32px | 12~14px |
+| Sidebar Width (expanded) | — | 188px |
+| Sidebar Width (collapsed) | — | 56px |
+| TopNav Height | 44px | — |
+| Filter Panel Width | 178px | — |
+| Icon Size (sm) | 12~13px | — |
+| Icon Size (md) | 14~15px | — |
+| Icon Size (lg) | 16px | — |
+
+---
+
+## 5. Border & Shadow
+
+### Border
+
+| 토큰 | 값 | 용도 |
+|------|----|------|
+| `--border-width` | 0.8px | 기본 테두리 두께 |
+| `--border-color` | `rgba(0,0,0,0.08)` | 카드, 인풋, 버튼 |
+| `--border-color-sidebar` | `#502a82` | 사이드바 구분선 |
+| `--border-color-primary` | `#6c2eaa` | 섹션 헤딩 좌측 강조선 |
+| `--border-section-width` | 3.2px | 섹션 헤딩 좌측 강조선 |
+
+### Border Radius
+
+| 토큰 | 값 | 용도 |
+|------|----|------|
+| `--radius-sm` | 3px | 버튼, 배지, 인풋, 테이블 |
+| `--radius-md` | 6px | 카드, 코드블록, 차트 컨테이너 |
+| `--radius-lg` | 10px | 카드 (large) |
+| `--radius-full` | 9999px | 아바타, 원형 아이콘 컨테이너 |
+
+### Shadow
+
+| 토큰 | 값 | 용도 |
+|------|----|------|
+| `--shadow-card` | `0px 5px 5px rgba(0,0,0,0.18)` | 그래프 노드, 플로팅 요소 |
+| `--shadow-topnav` | `0px 5px 5px rgba(0,0,0,0.18)` | TopNav 하단 그림자 |
+
+---
+
+## 6. 레이아웃
+
+### 전체 앱 구조
+
+```
+┌────────────────────────────────────────────────────────────┐
+│  TopNav (높이: 44~49px, 전체 너비)                           │
+├──────────┬─────────────────────────────────────────────────┤
+│          │  Summary Bar (대시보드 전용, 높이: ~50px)          │
+│ Sidebar  ├──────────────────────────────────────────────────┤
+│(188px    │  ┌──────────────────────────────────────────┐   │
+│expanded  │  │  Content Area (scroll)                   │   │
+│/ 56px    │  │  padding: 16~18px                        │   │
+│collapsed │  └──────────────────────────────────────────┘   │
+│)         │                                                  │
+└──────────┴──────────────────────────────────────────────────┘
+```
+
+### 리스트/상세 페이지 구조 (ASM > Asset 등)
+
+```
+┌────────────────────────────────────────────────────────────┐
+│  TopNav                                                     │
+├──────────┬──────────┬──────────────────────────────────────┤
+│          │  Filter  │  Page Header (타이틀 + 설정 버튼)      │
+│ Sidebar  │  Panel   ├──────────────────────────────────────┤
+│          │ (178px)  │  Search Bar                          │
+│          │          ├──────────────────────────────────────┤
+│          │          │  List Controls (정렬 / 페이지네이션)    │
+│          │          ├──────────────────────────────────────┤
+│          │          │  Content List (scroll)               │
+└──────────┴──────────┴──────────────────────────────────────┘
+```
+
+### 레이아웃 토큰
+
+| 항목 | Expanded | Collapsed |
+|------|----------|-----------|
+| Sidebar 너비 | 188px | 56px |
+| 사이드바 전환 | `width: 0.22s ease` | — |
+| TopNav 높이 | 44px | — |
+| Filter Panel 너비 | 178px | — |
+| 콘텐츠 패딩 | `16~18px` | — |
+| 섹션 간격 | 12px | — |
+| 카드 갭 | 10~12px | — |
+
+### 대시보드 그리드
+
+| 그리드 클래스 | 컬럼 구성 | 용도 |
+|-------------|----------|------|
+| `grid-3` | `repeat(3, 1fr)` | KPI 카드 3열, 차트 3열 |
+| `grid-2` | `repeat(2, 1fr)` | 좌우 분할 |
+| `grid-2-1` | `2fr 1fr` | 넓은 카드 + 좁은 카드 |
+| `grid-1-2` | `1fr 2fr` | 좁은 카드 + 넓은 카드 |
+
+### Asset 페이지 카드 그리드
+
+자산 카드 본문 내부는 **5열 고정 그리드**를 사용합니다.
+
+```css
+.asset-card-body {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+```
+
+| 컬럼 | 내용 |
+|------|------|
+| 1 | Seed Data |
+| 2 | IP / ISP / ASN / Country / Feature |
+| 3 | Software / Port |
+| 4 | Related CVE |
+| 5 | Recent Event Log |
+
+---
+
+## 7. 컴포넌트
+
+---
+
+### 7.1 Sidebar (Accordion)
+
+> UI 스크린샷 분석 기준 (QUAXAR 실제 서비스 화면)
+
+**전체 구조**
+```
+Sidebar (width: 232px)
+├── Header
+│   ├── Logo (QUAXAR 워드마크 + 접기 버튼)
+│   ├── User Info (아바타 + 이름 + 이메일 + ⋮ 메뉴)
+│   ├── My Alert 링크
+│   └── 조직 선택 드롭다운 (S2W.Inc)
+├── Navigation (스크롤 가능, flex: 1)
+│   ├── Dashboard (단일 항목, 아이콘)
+│   ├── [구분선]
+│   ├── Risk Factor (아코디언 섹션)
+│   │   ├── Risk Analytics
+│   │   ├── Risk Factor Monitoring
+│   │   └── Risk Factor Rule
+│   ├── [구분선]
+│   ├── Report (아코디언 섹션)
+│   │   ├── Talon Report
+│   │   ├── Cyber Threat Digest
+│   │   └── Enterprise Threat Digest
+│   ├── [구분선]
+│   ├── Threat Intelligence (아코디언 섹션)
+│   │   ├── Vulnerability
+│   │   ├── IoC
+│   │   ├── Signature
+│   │   └── Threat Actor
+│   ├── [구분선]
+│   ├── Digital Risk Protection (아코디언 섹션)
+│   │   ├── [그룹 레이블] Brand Compromised & leak
+│   │   │   ├── Account Take-Over
+│   │   │   ├── Brand Abuse Site
+│   │   │   ├── Card Leakage
+│   │   │   └── Data Breach Activity
+│   │   └── [그룹 레이블] Digital Source Detection
+│   │       ├── DDW Detection
+│   │       ├── Telegram Detection
+│   │       └── OSINT Detection
+│   ├── [구분선]
+│   ├── Attack Surface Management (아코디언 섹션)
+│   │   ├── [그룹 레이블] Asset Management
+│   │   │   ├── Asset
+│   │   │   ├── Domain
+│   │   │   ├── Software
+│   │   │   ├── Certificate
+│   │   │   ├── Event Log
+│   │   │   └── Asset CVE
+│   │   └── [그룹 레이블] Attack Technique Simulation
+│   │       ├── Attack Simulation
+│   │       └── Simulation History
+│   ├── [구분선]
+│   └── Company (아코디언 섹션)
+│       ├── License
+│       ├── Login Account
+│       ├── Seed
+│       └── Integration
+└── Footer
+    ├── QUAXAR Assistant 버튼
+    └── © 2020-2026 S2W Inc.
+```
+
+---
+
+---
+
+### 아이콘 시스템
+
+사이드바 내 모든 아이콘은 **Tabler Icons** (outline 스타일) 를 사용합니다. 이모지 사용 금지.
+
+```html
+<!-- CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+```
+
+**메뉴별 아이콘 매핑**
+
+| 메뉴 | Tabler 클래스 |
+|------|--------------|
+| Dashboard | `ti ti-layout-dashboard` |
+| Risk Factor | `ti ti-shield-half` |
+| Report | `ti ti-file-description` |
+| Threat Intelligence | `ti ti-radar` |
+| Digital Risk Protection | `ti ti-lock` |
+| Attack Surface Management | `ti ti-topology-star` |
+| Company | `ti ti-buildings` |
+| My Alert | `ti ti-bell` |
+| 접기 버튼 (expanded) | `ti ti-chevrons-left` |
+| 펼치기 버튼 (collapsed) | `ti ti-chevrons-right` |
+| 유저 메뉴 | `ti ti-dots-vertical` |
+| 조직 드롭다운 화살표 | `ti ti-chevron-down` |
+| QUAXAR Assistant | `ti ti-sparkles` |
+| TopNav 검색 | `ti ti-search` |
+| TopNav 알림 | `ti ti-bell` |
+| TopNav 설정 | `ti ti-settings` |
+| Stat: Active Threats | `ti ti-alert-triangle` |
+| Stat: Critical Alerts | `ti ti-bell-ringing` |
+| Stat: IOCs Tracked | `ti ti-database` |
+| Stat: Resolved | `ti ti-circle-check` |
+
+**아이콘 기본 사이즈 규칙**
+
+| 컨텍스트 | 크기 |
+|----------|------|
+| 사이드바 네비 아이콘 | 16px |
+| TopNav 액션 버튼 아이콘 | 16px |
+| Stat Card 아이콘 | 15px |
+| 접기/펼치기 버튼 | 16px |
+
+---
+
+### Expanded 상태 (너비: 222px)
+
+**Sidebar 컨테이너**
+
+| 속성 | 값 |
+|------|----|
+| 너비 | 222px |
+| 배경 | `#1e0f44` |
+| 우측 보더 | `1px solid rgba(255,255,255,0.07)` |
+| 레이아웃 | `flex-column`, `height: 100vh` |
+| 전환 애니메이션 | `width 0.22s ease` |
+
+**Header 영역**
+
+| 요소 | 스타일 |
+|------|--------|
+| 로고 아이콘 | 24×24px, `background: #7c4dff`, `border-radius: 6px`, 텍스트 `Q` Bold 12px white |
+| 워드마크 | Pretendard ExtraBold 13.5px, white, `letter-spacing: 0.04em` |
+| 접기 버튼 | `ti-chevrons-left` 16px, `rgba(255,255,255,0.3)` |
+| 하단 구분선 | `1px solid rgba(255,255,255,0.07)` |
+| Header 패딩 | `14px 14px 10px` |
+
+**User Info**
+
+| 속성 | 값 |
+|------|-----|
+| 아바타 | 28×28px, 원형, `background: linear-gradient(135deg, #8b72e7, #4a1fa8)` |
+| 이름 | Pretendard SemiBold 11.5px, `#ffffff` |
+| 이메일 | Pretendard Regular 9.5px, `rgba(255,255,255,0.38)` |
+| 메뉴 버튼 | `ti-dots-vertical` 16px, `rgba(255,255,255,0.32)` |
+
+**My Alert**
+- 아이콘: `ti-bell` 14px + 텍스트 `My Alert`
+- 패딩: `5px 7px`, Border Radius: 5px
+- 폰트: 10.5px, `rgba(255,255,255,0.52)`
+- Hover: `background: rgba(255,255,255,0.06)`
+
+**조직 선택 드롭다운**
+- 배경: `rgba(255,255,255,0.07)`, Border Radius: 7px
+- 패딩: `7px 11px`
+- 아이콘: `ti-building` 14px, `rgba(255,255,255,0.6)`
+- 폰트: 11px SemiBold, white
+- 화살표: `ti-chevron-down` 12px
+
+---
+
+**Navigation 영역**
+
+패딩: `8px 0` / 스크롤: `overflow-y: auto` (스크롤바 thin/투명)
+
+**섹션 루트 (아코디언 헤더)**
+
+| 상태 | 배경 | 아이콘/텍스트 색 |
+|------|------|----------------|
+| Default | transparent | `rgba(255,255,255,0.72)` |
+| Open (Active Section) | transparent | `#9d7ff5` |
+| Hover | `rgba(255,255,255,0.04)` | — |
+
+- 패딩: `8px 14px`
+- 아이콘: Tabler 16px, `width: 15px`
+- 레이블: Pretendard Medium 11.5px
+- 화살표: `▾` 9px, `rgba(255,255,255,0.3)`, `transition: transform 0.2s`
+  - 열림 상태: `rotate(180deg)`
+
+**서브 아이템**
+
+| 상태 | 스타일 |
+|------|--------|
+| Default | `color: rgba(255,255,255,0.58)`, 패딩 `6px 14px 6px 40px` |
+| Hover | `color: #fff`, `background: rgba(255,255,255,0.05)` |
+| Active | `color: #a78bfa`, `border-left: 2.5px solid #7c4dff`, `background: rgba(124,77,255,0.12)`, `font-weight: 500` |
+
+- 폰트: 11.5px Regular → Active 시 500
+- 좌측 인덴트: 40px
+- 좌측 보더: 기본 `2.5px solid transparent`, 활성 시 `#7c4dff`
+
+**그룹 레이블**
+
+```css
+font-size: 9px;
+font-weight: 600;
+color: rgba(255,255,255,0.26);
+text-transform: uppercase;
+letter-spacing: 0.07em;
+padding: 7px 14px 3px 40px;
+```
+
+**아코디언 애니메이션**
+
+```css
+.sub-list {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease;
+}
+.sub-list.open {
+  max-height: 600px;
+}
+.arrow {
+  transition: transform 0.2s;
+}
+.arrow.open {
+  transform: rotate(180deg);
+}
+```
+
+**구분선 (Divider)**
+
+```css
+height: 0.8px;
+background: rgba(255,255,255,0.07);
+margin: 3px 14px;
+```
+
+**Dashboard (단일 항목)**
+- Active: `border-left: 2.5px solid #7c4dff`, `background: rgba(124,77,255,0.12)`
+- 패딩: `8px 14px`
+
+---
+
+**Footer 영역 (Expanded)**
+
+보더: `1px solid rgba(255,255,255,0.07)` (상단) / 패딩: `10px 12px`
+
+**QUAXAR Assistant 버튼**
+
+| 속성 | 값 |
+|------|-----|
+| 배경 | `rgba(124,77,255,0.17)` |
+| 보더 | `0.8px solid rgba(124,77,255,0.32)` |
+| Border Radius | 8px |
+| 패딩 | `9px 11px` |
+| Hover | `rgba(124,77,255,0.25)` |
+| 아이콘 | 24×24px 원형, `#7c4dff` 배경, `ti-sparkles` 13px white |
+| 제목 | Pretendard SemiBold 11px, white |
+| 서브텍스트 | 9px, `rgba(255,255,255,0.4)` |
+| 화살표 | `ti-chevron-right` 14px, `rgba(255,255,255,0.35)` |
+
+**Copyright**
+
+```css
+font-size: 9.5px;
+color: rgba(255,255,255,0.2);
+text-align: center;
+```
+
+---
+
+### Collapsed 상태 (너비: 56px)
+
+사이드바 헤더의 접기 버튼(`ti-chevrons-left`) 클릭 시 Collapsed 상태로 전환됩니다.  
+Collapsed 상태에서는 **아이콘만 표시**하고, 텍스트·서브메뉴·그룹 레이블은 모두 숨깁니다.
+
+**레이아웃 변화**
+
+| 속성 | Expanded | Collapsed |
+|------|----------|-----------|
+| 너비 | 222px | 56px |
+| 전환 | `width: 0.22s ease` | — |
+| 로고 워드마크 | 표시 | 숨김 (`opacity: 0`, `width: 0`) |
+| 접기 버튼 아이콘 | `ti-chevrons-left` | `ti-chevrons-right` |
+| 유저 이름/이메일 | 표시 | 숨김 |
+| My Alert 텍스트 | 표시 | 숨김 (아이콘만) |
+| 조직 드롭다운 전체 | 표시 | 숨김 |
+| 네비 레이블 | 표시 | 숨김 |
+| 서브메뉴 전체 | 아코디언 | 숨김 (hover 툴팁으로 대체) |
+| 구분선 | 표시 | 숨김 |
+| Assistant 텍스트 | 표시 | 숨김 (아이콘만) |
+| Copyright | 표시 | 숨김 |
+
+**Collapsed Header**
+
+```
+┌─────────────────┐
+│  [Q]  [›]       │  ← Q 아이콘 + 펼치기 버튼만
+└─────────────────┘
+```
+
+- 아바타만 표시, 이름/이메일 숨김
+- My Alert: `ti-bell` 아이콘만 중앙 정렬
+- 조직 드롭다운: 완전 숨김
+
+**Collapsed Navigation 아이템**
+
+```css
+/* 아이콘 중앙 정렬 */
+.nav-root-collapsed,
+.nav-single-collapsed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  cursor: pointer;
+  border-left: 2.5px solid transparent;
+  transition: background 0.12s;
+}
+.nav-root-collapsed:hover,
+.nav-single-collapsed:hover {
+  background: rgba(255,255,255,0.06);
+}
+.nav-single-collapsed.active {
+  border-left-color: #7c4dff;
+  background: rgba(124,77,255,0.12);
+}
+```
+
+**Collapsed Tooltip (Hover 시 메뉴명 표시)**
+
+마우스 오버 시 우측에 툴팁으로 메뉴 레이블을 표시합니다.
+
+```css
+.nav-tooltip {
+  position: absolute;
+  left: 60px;               /* sidebar 우측 여백 포함 */
+  top: 50%;
+  transform: translateY(-50%);
+  background: #2d1f5e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+  border: 0.8px solid rgba(124,77,255,0.3);
+}
+.nav-root:hover .nav-tooltip,
+.nav-single:hover .nav-tooltip {
+  opacity: 1;
+}
+```
+
+**Collapsed Footer**
+
+```
+┌─────────────────┐
+│      [✦]        │  ← sparkles 아이콘만, 중앙 정렬
+└─────────────────┘
+```
+
+- QUAXAR Assistant 아이콘(24px 원형)만 중앙 배치
+- Copyright 텍스트 숨김
+
+**전체 전환 CSS 예시**
+
+```css
+.sidebar {
+  width: 222px;
+  transition: width 0.22s ease;
+  overflow: hidden;
+}
+.sidebar.collapsed {
+  width: 56px;
+}
+.sidebar-text {
+  opacity: 1;
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+.sidebar.collapsed .sidebar-text {
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  overflow: hidden;
+}
+.sub-list {
+  transition: max-height 0.25s ease;
+}
+.sidebar.collapsed .sub-list {
+  max-height: 0 !important;
+}
+```
+
+**상태 시각화**
+
+```
+Expanded (222px)              Collapsed (56px)
+┌──────────────────────┐      ┌────┐
+│ [Q] QUAXAR      [‹] │      │[Q] │
+│ 홍길동                │      │[홍] │
+│ ps2w@s2w.inc         │      │    │
+│ 🔔 My Alert          │      │[🔔]│
+│ 🏢 S2W.Inc      [v]  │      │    │
+├──────────────────────┤      ├────┤
+│ ⬡  Dashboard         │      │[⬡] │
+│ 🛡  Risk Factor   [v]│      │[🛡]│
+│   Risk Analytics     │      │    │
+│ > Risk Factor Mon.   │      │    │
+│   Risk Factor Rule   │      │    │
+│ 📋 Report        [v] │      │[📋]│
+│ ...                  │      │... │
+├──────────────────────┤      ├────┤
+│ [✦] QUAXAR Asst  [›] │      │[✦] │
+│ © 2020-2026 S2W Inc. │      │    │
+└──────────────────────┘      └────┘
+```
+
+---
+
+### 7.2 TopNav
+
+페이지에 따라 우측 액션 버튼 구성이 다릅니다.
+
+**공통 스타일**
+
+| 속성 | 값 |
+|------|-----|
+| 배경 | `#ffffff` |
+| 높이 | 44px |
+| 하단 보더 | `0.8px solid rgba(0,0,0,0.07)` |
+| 하단 그림자 | `0 1px 5px rgba(44,24,90,0.05)` |
+
+**Search Input**
+
+| 속성 | 값 |
+|------|-----|
+| 배경 | `rgba(246,246,246,0.7)` |
+| 보더 | `0.8px solid rgba(0,0,0,0.07)` |
+| 높이 | 26px |
+| 최대 너비 | 400px |
+| Placeholder 색 | `#7a6e8a` |
+| 폰트 | 10.5px |
+| 좌측 아이콘 | `ti-search` 13px, `#b0a8be` |
+| Border Radius | 5px |
+
+**Dashboard TopNav — 우측 액션**
+
+| 요소 | 스타일 |
+|------|--------|
+| 알림 아이콘 (`ti-bell`) | 26×26px, `#7a6e8a` |
+| 설정 아이콘 (`ti-settings`) | 26×26px, `#7a6e8a` |
+| 아바타 | 26×26px 원형, `linear-gradient(135deg, #8b72e7, #4a1fa8)` |
+
+**Asset 페이지 TopNav — 우측 액션 추가**
+
+| 요소 | 스타일 |
+|------|--------|
+| 원본 컨텐츠 버튼 | Primary 버튼, `background: #7c4dff`, `color: #fff`, `ti-file-text` 아이콘 |
+| 자동 반영 버튼 | Outline 버튼, `ti-adjustments-horizontal` + `ti-chevron-down` 아이콘 |
+| 구분선 | `width: 1px`, `height: 18px`, `background: rgba(0,0,0,0.1)` |
+| 테마 토글 (`ti-sun`) | 26×26px, `#7a6e8a` |
+| 레이아웃 토글 (`ti-layout-columns`) | 26×26px, `#7a6e8a` |
+
+**Action Button 공통**
+
+```css
+.topnav-btn {
+  font-size: 9.5px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.topnav-btn.primary {
+  background: #7c4dff;
+  border: none;
+  color: #ffffff;
+}
+.topnav-btn.outline {
+  background: #ffffff;
+  border: 0.8px solid rgba(0,0,0,0.1);
+  color: #2d2240;
+}
+```
+
+---
+
+### 7.3 Badge
+
+배지는 4가지 유형으로 분류됩니다.
+
+#### Severity Badge (위험도)
+
+대시보드 얼럿 테이블, CVE 목록, RF 리스트에 사용.
+
+| 등급 | 배경 | 텍스트 | 보더 |
+|------|------|--------|------|
+| Critical | `#e53e3e` | `#fff` | none |
+| High | `#dd6b20` | `#fff` | none |
+| Medium | transparent | `#d97706` | `0.8px solid #d97706` |
+| Low | transparent | `#059669` | `0.8px solid #059669` |
+
+```css
+.badge-severity {
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+```
+
+#### CVE Score Badge (점수형)
+
+Related CVE 컬럼에서 점수 + ID 조합으로 사용.
+
+| 점수 | 색상 |
+|------|------|
+| 4.0 이상 | `#e53e3e` |
+| 3.0 ~ 3.9 | `#d97706` |
+| 2.9 이하 | `#059669` |
+
+#### Feature Tag Badge (기능 분류)
+
+Asset 카드 내 Feature 컬럼 및 필터 패널에 사용. Pill 형태가 아닌 사각 배지.
+
+| Feature | 배경 | 텍스트 | 보더 |
+|---------|------|--------|------|
+| VPN | `rgba(124,77,255,0.1)` | `#7c4dff` | `rgba(124,77,255,0.25)` |
+| Dev | `rgba(6,182,212,0.1)` | `#0891b2` | `rgba(6,182,212,0.25)` |
+| Login | `rgba(5,150,105,0.1)` | `#065f46` | `rgba(5,150,105,0.25)` |
+| Internal | `rgba(217,119,6,0.1)` | `#92400e` | `rgba(217,119,6,0.25)` |
+| Admin | `rgba(229,62,62,0.1)` | `#9b1c1c` | `rgba(229,62,62,0.25)` |
+
+```css
+.feat-tag {
+  font-size: 8.5px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 0.8px solid;
+  display: inline-block;
+  margin: 1px;
+}
+```
+
+#### ISP Badge (클라우드 공급사)
+
+Asset 카드 IP 컬럼 내 ISP 표시에 사용.
+
+| 공급사 | 배경 | 텍스트 | 보더 |
+|--------|------|--------|------|
+| Azure | `rgba(0,120,212,0.06)` | `#0078d4` | `rgba(0,120,212,0.3)` |
+| AWS | `rgba(255,153,0,0.06)` | `#e47911` | `rgba(255,153,0,0.3)` |
+| GCP | `rgba(66,133,244,0.06)` | `#4285f4` | `rgba(66,133,244,0.3)` |
+
+```css
+.isp-badge {
+  font-size: 8.5px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: 0.8px solid;
+  display: inline-block;
+  margin-right: 4px;
+}
+```
+
+---
+
+### 7.4 Button
+
+| 타입 | 배경 | 보더 | 텍스트 색 | 용도 |
+|------|------|------|----------|------|
+| Primary | `#7c4dff` | none | `#ffffff` | 검색 버튼, 원본 컨텐츠 버튼 |
+| Outline | `#ffffff` | `0.8px solid rgba(0,0,0,0.1)` | `#2d2240` | 다운로드, 그룹 담기, 자동 반영 |
+| Accent Outline | `rgba(124,77,255,0.08)` | `0.8px solid #7c4dff` | `#7c4dff` | View All, 더보기, 필터 추가 |
+| Ghost | transparent | none | `#5a5870` | 아이콘 전용 토글 버튼 |
+| QUAXAR Assistant | `rgba(124,77,255,0.17)` | `0.8px solid rgba(124,77,255,0.32)` | `#ffffff` | 사이드바 하단 고정 |
+
+**공통 속성**
+
+```css
+button {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 9.5px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  padding: 3px 10px;
+}
+```
+
+**높이 규칙**
+
+| 컨텍스트 | 높이 |
+|----------|------|
+| TopNav / ListControl 버튼 | 25~26px |
+| Search Bar 검색 버튼 | 29px |
+| 카드 내 View All / 더보기 | auto (padding 기준) |
+
+---
+
+### 7.5 Card
+
+카드는 두 가지 유형으로 구분됩니다.
+
+#### Dashboard Card (콘텐츠 카드)
+
+대시보드 섹션 내 차트/리스트/테이블을 담는 컨테이너.
+
+```css
+.card {
+  background: #ffffff;
+  border: 0.8px solid rgba(0,0,0,0.07);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-header {
+  padding: 10px 14px 8px;
+  border-bottom: 0.8px solid rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #2d2240;
+}
+.card-sub {
+  font-size: 9px;
+  color: #7a6e8a;
+  margin-top: 2px;
+}
+.card-body {
+  padding: 12px 14px;
+}
+```
+
+#### Asset Card (목록 카드)
+
+ASM > Asset 페이지의 자산 목록에 사용.
+
+```css
+.asset-card {
+  background: #ffffff;
+  border: 0.8px solid rgba(0,0,0,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+}
+```
+
+자세한 규격은 [9.5 Asset Card](#95-asset-card) 참조.
+
+#### KPI Trend Card
+
+대시보드 내 수치 + 차트가 내장된 요약 카드.
+
+```css
+.kpi-card {
+  background: #ffffff;
+  border: 0.8px solid rgba(0,0,0,0.07);
+  border-radius: 10px;
+  padding: 12px 14px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 10px 10px 0 0;
+}
+```
+
+상단 3px 컬러 바는 섹션별 색상 적용:
+
+| 섹션 | 컬러 바 색상 |
+|------|-------------|
+| Vulnerability | `#d97706` |
+| Risk Factor | `#7c4dff` |
+| Talon Report | `#7c4dff` |
+| Account Take-Over | `#e53e3e` |
+| Brand Abuse Site | `#dd6b20` |
+| Card Leakage | `#d97706` |
+| Domain | `#06b6d4` |
+| Certificate | `#7c4dff` |
+
+---
+
+### 7.6 Table
+
+#### 구조
+
+```
+Table
+├── TableHeader
+│   └── TableRow
+│       └── TableHead (열별)
+└── TableBody
+    └── TableRow (반복)
+        └── TableCell (열별)
+```
+
+#### 스타일
+
+| 요소 | 배경 | 텍스트 | 보더 |
+|------|------|--------|------|
+| TableHeader | `rgba(246,246,246,0.5)` | Pretendard SemiBold 11px, `#3d3d3d` | 하단 0.8px |
+| TableRow | transparent | — | 하단 `rgba(0,0,0,0.08)` |
+| TableCell (텍스트) | — | Pretendard Regular 11px, `#3d3d3d` | — |
+| TableCell (데이터) | — | Inter Regular 11px, `#3d3d3d` | — |
+
+**Row 높이**: 31px
+**Header 높이**: 32px
+**셀 좌측 패딩**: 6px
+
+**Related Tags Cell** (특수 셀)
+- 배경: `rgba(246,246,246,0.5)`
+- Border Radius: 3px
+- 패딩: 5px 좌우
+- 폰트: Pretendard Regular 10px, `#9b9b9b`
+
+---
+
+### 7.7 Section Heading
+
+리포트 섹션 구분에 사용하는 헤딩입니다.
+
+**스타일**
+
+```css
+border-left: 3px solid #6c2eaa;
+padding-left: 10px;
+font-family: 'Pretendard', sans-serif;
+font-weight: 700;
+font-size: 16px;
+color: #3d3d3d;
+line-height: 22px;
+```
+
+**배지와 조합 시** (예: Yara Rules + `detect` 배지)
+- Heading과 Badge를 수평 정렬
+- 간격: 6px
+
+---
+
+### 7.8 Code Block
+
+**스타일**
+
+| 속성 | 값 |
+|------|----|
+| 배경 | `#0f172b` |
+| Border Radius | 6px |
+| 패딩 | 13px |
+| 폰트 | Inter Regular 11px |
+| 텍스트 색 | `#f8fafc` |
+| 라인 높이 | 16px |
+
+---
+
+### 7.9 Input
+
+Search Input의 기본 규격입니다.
+
+```css
+background: rgba(246, 246, 246, 0.5);
+border: 0.8px solid #ffffff;
+border-radius: 3px;
+height: 29px;
+padding: 0 10px 0 30px; /* 좌측 아이콘 공간 확보 */
+font-family: 'Pretendard', sans-serif;
+font-size: 11px;
+color: #9b9b9b; /* placeholder */
+```
+
+---
+
+### 7.10 Tag / Chip
+
+관련 태그(#Zero-Day, #RCE 등)에 사용합니다.
+
+```css
+border: 0.8px solid rgba(0, 0, 0, 0);
+border-radius: 3px;
+padding: 2px 7px;
+height: 18px;
+font-family: 'Pretendard', sans-serif;
+font-weight: 500;
+font-size: 10px;
+color: #616161;
+```
+
+> `#` prefix 포함하여 표시 (`#Zero-Day`, `#APT29` 등)
+
+---
+
+### 7.11 Chart
+
+#### 공통 차트 설정
+
+```js
+Chart.defaults.font.family = "'Pretendard', 'Inter', system-ui, sans-serif";
+
+const tooltipStyle = {
+  backgroundColor: '#1e0f44',
+  borderColor: 'rgba(124,77,255,0.4)',
+  borderWidth: 1,
+  titleFont: { size: 10, weight: '600' },
+  bodyFont:  { size: 9.5 },
+  padding: 7,
+};
+
+const axisStyle = {
+  grid:   { color: 'rgba(0,0,0,0.04)' },
+  ticks:  { color: '#b0a8be', font: { size: 9 } },
+  border: { display: false },
+};
+```
+
+#### 차트 색상 팔레트
+
+| 토큰 | 값 | 용도 |
+|------|-----|------|
+| `--color-chart-1` | `#7c4dff` | IOC, RF, 기본 |
+| `--color-chart-2` | `#06b6d4` | Domain, 정보 |
+| `--color-chart-3` | `#f59e0b` | File Hash, 경고 |
+| `--color-chart-4` | `#f43f5e` | URL, 위험 |
+| `--color-chart-5` | `#10b981` | 성공, 해결 |
+
+#### KPI Bar Chart (섹션 내 소형)
+
+- 높이: 55~60px (compact)
+- barThickness: 8px
+- Border Radius: 3px (상단만)
+- 배경: 해당 색상 + `33` (알파 20%)
+- 보더: 해당 색상 1.5px
+
+#### Trend Line/Area Chart
+
+- 높이: 138~170px
+- tension: 0.4
+- fill: true (그라데이션 fill)
+- Critical line: strokeWidth 2, dot 표시
+- High/Medium: strokeWidth 1.5, dot 없음
+
+#### Donut Chart (Risk Factor 상태)
+
+- cutout: `62%`
+- paddingAngle: 없음
+- borderWidth: 0
+- hoverOffset: 4
+- 중앙 텍스트: 18px Bold (별도 overlay)
+
+#### Horizontal Bar Chart (Attack Vector)
+
+- barThickness: 9px
+- borderRadius: 3px (우측만)
+- 색상: 순위별 danger → warning → accent 순 감소
+
+#### ATP Mitre Table
+
+차트가 아닌 일반 테이블로 표현. Discover / Intrusion 수치 컬럼.
+
+---
+
+---
+
+## 9. ASM > Asset 페이지
+
+> QUAXAR 실제 서비스 화면 스크린샷 분석 기반. 경로: Attack Surface Management > Asset Management > **Asset**
+
+---
+
+### 9.1 페이지 구조
+
+```
+┌──────────────────────────────────────────────────────────┐
+│  TopNav (height: 44px)                                    │
+│  검색 인풋 | 원본 컨텐츠(Primary) | 자동 반영 | 테마 토글   │
+├────────────┬─────────────────────────────────────────────┤
+│            │  Page Header (Asset 타이틀 + 자산 관리 설정)  │
+│  Filter    ├─────────────────────────────────────────────┤
+│  Panel     │  Search Bar (인풋 + 필터 + 날짜 + 검색 버튼) │
+│  (178px)   ├─────────────────────────────────────────────┤
+│            │  List Controls (체크박스 + 정렬 + 페이지네이션)│
+│  - 그룹     ├─────────────────────────────────────────────┤
+│  - Severity│  Asset Card 1 (Normal)                      │
+│  - RF 유형  │  Asset Card 2 (Expanded)                    │
+│  - Feature  │  Asset Card 3 (Normal)                      │
+│  - Label   │  Asset Card 4 (N/A State)                   │
+│            │  Asset Card 5 (Inactive)                    │
+│            ├─────────────────────────────────────────────┤
+│            │  Bottom Pagination                          │
+└────────────┴─────────────────────────────────────────────┘
+```
+
+**레이아웃 토큰**
+
+| 속성 | 값 |
+|------|-----|
+| 전체 배경 | `#f0eef8` |
+| Filter Panel 너비 | 178px |
+| Filter Panel 배경 | `#ffffff` |
+| Content Area | `flex: 1`, `overflow-y: auto` |
+| Asset List 패딩 | `12px 16px` |
+| Asset List 카드 간격 | `gap: 8px` |
+
+---
+
+### 9.2 Filter Panel
+
+**컨테이너**
+
+| 속성 | 값 |
+|------|-----|
+| 너비 | 178px |
+| 배경 | `#ffffff` |
+| 우측 보더 | `0.8px solid rgba(0,0,0,0.07)` |
+| 스크롤 | `overflow-y: auto`, thin scrollbar |
+| 패딩 | `섹션별 10px 14px` |
+
+**섹션 레이블 (공통)**
+
+```css
+.filter-section-title {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #9b99a8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+```
+
+#### 그룹 섹션
+
+- 그룹 목록: 이름 + 우측 건수 + `⋯` 메뉴 버튼
+- 추가 버튼: `font-size: 9px`, `border-radius: 4px`, accent 색상
+
+**그룹 탭 (전체 / 제외 대상)**
+
+| 상태 | 스타일 |
+|------|--------|
+| Active (전체) | `border-left: 2.5px solid #7c4dff`, `background: rgba(124,77,255,0.07)`, `color: #7c4dff`, `font-weight: 500` |
+| Default | `border-left: 2.5px solid transparent`, `color: #5a5870` |
+
+#### 체크박스 필터
+
+공통 스타일:
+```css
+label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 0;
+  font-size: 10.5px;
+  color: #5a5870;
+  cursor: pointer;
+}
+input[type="checkbox"] {
+  width: 12px;
+  height: 12px;
+  accent-color: #7c4dff;
+}
+```
+
+포함 항목: `Risk Factor 있는 대상만 보기`, `Note 있는 대상만 보기`, `Cloud 자산만 보기`
+
+#### Severity 필터
+
+각 항목에 색상 도트(9×9px, `border-radius: 2px`)를 포함한 체크박스.
+
+| 항목 | 도트 색상 | checkbox accent |
+|------|----------|----------------|
+| Extreme | `#e53e3e` | `#e53e3e` |
+| Major | `#dd6b20` | `#dd6b20` |
+| Moderate | `#059669` | `#059669` |
+| Minor | `#3b82f6` | `#3b82f6` |
+| None | `#d1d5db` | 기본 |
+
+#### Risk Factor 필터
+
+체크박스 목록: `소프트웨어 탐지`, `취약점 매칭`, `인증서 만료 알림`, `유출 계정 탐지`
+
+#### Feature 태그 필터
+
+Pill 형태 태그 선택 (컬러는 Feature 태그 색상 규칙과 동일):
+`VPN`, `DEV`, `Login`, `Internal`, `Admin` + 더보기 버튼
+
+#### Label 필터
+
+컬러 뱃지 형태의 체크박스 목록. 뱃지 색상은 라벨별로 다름.
+`시드라벨에시`, `업무자동등름`, `자바스api서버`, `데테근무림`, `클라우드지정소` + 더보기 버튼
+
+#### 구분선 (필터 섹션 간)
+
+```css
+.filter-divider {
+  height: 0.8px;
+  background: rgba(0,0,0,0.06);
+  margin: 8px 0;
+}
+```
+
+---
+
+### 9.3 Search Bar
+
+```
+┌────────────────────────────────────────────────────────┐
+│ [검색 인풋 (flex: 1)]  [필터 아이콘]  [날짜 범위]  [검색] │
+│ AND(대문자), OR... 검색 예시 보기                         │
+└────────────────────────────────────────────────────────┘
+```
+
+**스타일**
+
+| 요소 | 속성 | 값 |
+|------|------|-----|
+| 컨테이너 | 배경 | `#ffffff` |
+| 컨테이너 | 패딩 | `9px 16px` |
+| 컨테이너 | 하단 보더 | `0.8px solid rgba(0,0,0,0.07)` |
+| 검색 인풋 | 높이 | 29px |
+| 검색 인풋 | 보더 | `0.8px solid rgba(0,0,0,0.1)` |
+| 검색 인풋 | Border Radius | 5px |
+| 검색 인풋 | placeholder 색 | `#b0a8be` |
+| 필터 아이콘 버튼 | 크기 | 29×29px |
+| 날짜 범위 칩 | 높이 | 29px, `ti-calendar` 아이콘 포함 |
+| 검색 버튼 | 배경 | `#7c4dff` |
+| 검색 버튼 | 텍스트 | 10.5px SemiBold, white |
+| 검색 버튼 | Border Radius | 5px |
+
+**검색 힌트 텍스트**
+- `font-size: 9.5px`, `color: #9b99a8`
+- `검색 예시 보기` → `color: #7c4dff`, `text-decoration: underline`, cursor pointer
+
+---
+
+### 9.4 List Controls
+
+**스타일**
+
+```css
+.list-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background: #ffffff;
+  border-bottom: 0.8px solid rgba(0,0,0,0.07);
+}
+```
+
+**포함 요소**
+
+| 요소 | 스타일 |
+|------|--------|
+| 전체 체크박스 | 13×13px |
+| 총 건수 | `font-size: 10.5px`, 숫자 Bold |
+| 전체 다운로드 / 전체 그룹에 담기 버튼 | outline 버튼, `font-size: 9.5px`, 아이콘 포함 |
+| 정렬 select | `height: 25px`, `font-size: 9.5px`, outline border |
+| 개수 select | 동일 |
+| 페이지네이션 | 우측 정렬, `font-size: 10.5px`, 방향 버튼 22×22px |
+
+**페이지네이션 버튼**
+```css
+.pg-btn {
+  width: 22px;
+  height: 22px;
+  border: 0.8px solid rgba(0,0,0,0.1);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #ffffff;
+  color: #7a6e8a;
+}
+```
+
+---
+
+### 9.5 Asset Card
+
+자산 목록의 기본 카드 단위.
+
+**카드 컨테이너**
+
+```css
+.asset-card {
+  background: #ffffff;
+  border: 0.8px solid rgba(0,0,0,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+}
+```
+
+#### 카드 헤더 (Head)
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ [체크박스] 도메인명  [그룹 태그] [라벨 태그]    Detected 날짜 [아이콘] │
+│            RF 도트 배지들 (소프트웨어 탐지 / 취약점 매칭 / ...)      │
+└──────────────────────────────────────────────────────────────┘
+```
+
+| 요소 | 스타일 |
+|------|--------|
+| 컨테이너 | `padding: 9px 12px`, `border-bottom: 0.8px solid rgba(0,0,0,0.06)` |
+| 도메인 | `font-size: 12px`, `font-weight: 600`, `color: #7c4dff`, cursor pointer |
+| 그룹 태그 | 소형 배지 (배경 컬러는 그룹별 커스텀) |
+| RF 도트 배지 | 7px 원형 도트 + 레이블 + 카운트, `font-size: 9.5px` |
+| Detected / Updated 날짜 | `font-size: 9px`, `color: #b0a8be`, 우측 정렬 |
+| 외부 링크 아이콘 | `ti-external-link` 14px, `color: #b0a8be` |
+
+**RF 도트 색상 규칙**
+
+| Risk Factor 유형 | 도트 색상 |
+|-----------------|----------|
+| 소프트웨어 탐지 | `#7c4dff` |
+| 취약점 매칭 | `#e53e3e` (Critical), `#d97706` (Medium) 복수 표시 |
+| 유출계정 탐지 | `#0891b2` |
+| 만료 예정 인증서 | `#d97706` |
+
+#### 카드 본문 (Body)
+
+5열 그리드 (`repeat(5, 1fr)`), 열 간 `border-right: 0.8px solid rgba(0,0,0,0.05)`.
+
+**컬럼 공통 스타일**
+```css
+.asset-col {
+  padding: 8px 12px;
+}
+.col-label {
+  font-size: 8.5px;
+  font-weight: 600;
+  color: #9b99a8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.col-val {
+  font-size: 10.5px;
+  color: #2d2240;
+  line-height: 1.5;
+}
+.col-val.muted { color: #7a6e8a; }
+.col-val.link  { color: #7c4dff; cursor: pointer; }
+```
+
+**컬럼 1 — Seed Data**
+- 숫자 데이터, `Inter Regular` 선호
+
+**컬럼 2 — IP / ISP / ASN / Country / Feature**
+- IP: link 스타일, `+N` suffix는 `color: #b0a8be`
+- ISP: 클라우드 공급사 배지 + 회사명 (배지 규격은 ISP 배지 색상 규칙 참고)
+- Feature: FeatTag 컴포넌트 (Feature 태그 색상 규칙 참고)
+
+**컬럼 3 — Software / Port**
+- 컬럼 레이블 우측에 총 건수 (accent 색상 bold)
+- 소프트웨어명 / 포트번호 형식
+- 닫기(✕) 버튼: `font-size: 9px`, `color: #b0a8be`
+- 더보기/접기 버튼 (아래 참조)
+
+**컬럼 4 — Related CVE**
+- 컬럼 레이블 우측에 총 건수
+- 점수 + CVE ID 행 구성
+- 점수 색상: `4.0+` → `#e53e3e` / `3.0~3.9` → `#d97706` / `~2.9` → `#059669`
+- CVE ID: link 스타일
+
+**컬럼 5 — Recent Event Log**
+- 날짜: `font-size: 9px`, `font-weight: 600`, `color: #7c4dff`
+- 내용: `font-size: 9.5px`, `color: #2d2240`, `line-height: 1.4`
+
+**더보기 / 접기 버튼 (공통)**
+
+```css
+.more-btn {
+  font-size: 9px;
+  color: #7c4dff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 3px;
+}
+```
+
+---
+
+### 9.6 Asset Card 상태 변형
+
+#### 일반 카드 (Normal)
+
+기본 규격 그대로 적용.
+
+#### N/A 상태 카드
+
+데이터가 없는 자산에 사용.
+
+| 요소 | 변경 사항 |
+|------|----------|
+| 도메인 | 일반 bold 텍스트 (link 없음) |
+| RF 영역 | `Risk Factor N/A` 텍스트, `font-size: 9.5px`, `color: #b0a8be` |
+| 본문 모든 컬럼 | `col-val.muted` 스타일, 데이터 없음 안내 텍스트 |
+| 우측 아이콘 | `ti-copy` (복사 아이콘) |
+
+#### Inactive 상태 카드
+
+비활성화된 자산에 사용.
+
+| 요소 | 변경 사항 |
+|------|----------|
+| 헤더 배경 | `rgba(246,246,246,0.5)` |
+| 도메인 텍스트 색 | `#9b99a8` (회색) |
+| Inactive 배지 | `background: rgba(0,0,0,0.06)`, `color: #9b99a8`, `border: 0.8px solid rgba(0,0,0,0.1)` |
+| Last Scanned 날짜 | `font-size: 9px`, `color: #b0a8be` |
+| 카드 본문 | 표시 안 함 (헤더만) |
+| 우측 아이콘 | `ti-copy` |
+
+---
+
+### 9.7 Page Header (Asset)
+
+```css
+.page-header {
+  background: #ffffff;
+  border-bottom: 0.8px solid rgba(0,0,0,0.07);
+  padding: 9px 16px;
+}
+.page-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #2d2240;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-setting-btn {
+  font-size: 10px;
+  color: #7c4dff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+```
+
+---
+
+## 10. CSS 변수 정의
+
+> 대시보드 + ASM Asset 페이지 실제 구현 기준의 최신 토큰입니다.
+
+```css
+:root {
+  /* ── Colors: Accent ── */
+  --color-accent:           #7c4dff;
+  --color-accent-faded:     rgba(124,77,255,0.1);
+  --color-accent-border:    rgba(124,77,255,0.25);
+
+  /* ── Colors: Sidebar ── */
+  --color-sidebar-bg:             #1e0f44;
+  --color-sidebar-border:         rgba(255,255,255,0.07);
+  --color-nav-active-bg:          rgba(124,77,255,0.12);
+  --color-nav-active-text:        #a78bfa;
+  --color-nav-section-active:     #9d7ff5;
+
+  /* ── Colors: Surface ── */
+  --color-bg:              #f0eef8;
+  --color-surface:         #ffffff;
+  --color-surface-subtle:  rgba(246,246,246,0.6);
+
+  /* ── Colors: Border ── */
+  --color-border:          rgba(0,0,0,0.07);
+  --color-border-mid:      rgba(0,0,0,0.1);
+  --color-border-subtle:   rgba(0,0,0,0.05);
+
+  /* ── Colors: Text ── */
+  --color-text-primary:    #2d2240;
+  --color-text-secondary:  #5a5870;
+  --color-text-muted:      #9b99a8;
+  --color-text-hint:       #b0a8be;
+  --color-text-inverted:   #ffffff;
+
+  /* ── Colors: Semantic ── */
+  --color-danger:          #e53e3e;
+  --color-danger-high:     #dd6b20;
+  --color-warning:         #d97706;
+  --color-success:         #059669;
+  --color-info:            #0891b2;
+
+  /* ── Colors: Chart ── */
+  --color-chart-1: #7c4dff;
+  --color-chart-2: #06b6d4;
+  --color-chart-3: #f59e0b;
+  --color-chart-4: #f43f5e;
+  --color-chart-5: #10b981;
+
+  /* ── Typography ── */
+  --font-primary:   'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+
+  /* Font sizes */
+  --text-xs:    8.5px;   /* 컬럼 레이블, 배지 */
+  --text-sm:    9px;     /* 날짜, 메타, 더보기 버튼 */
+  --text-base:  9.5px;   /* 일반 배지, 버튼, 힌트 텍스트 */
+  --text-md:    10.5px;  /* 카드 본문, 리스트 항목 */
+  --text-lg:    11px;    /* 사이드바 메뉴, 카드 부제목 */
+  --text-xl:    11.5px;  /* 카드 제목 */
+  --text-2xl:   12px;    /* 도메인명, 섹션 서브타이틀 */
+  --text-3xl:   17px;    /* 페이지 타이틀 (Asset) */
+  --text-4xl:   18px;    /* 대시보드 페이지 타이틀 */
+  --text-kpi:   21px;    /* KPI 카드 수치 */
+  --text-sum:   19px;    /* Summary Bar 수치 */
+
+  /* ── Spacing ── */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   10px;
+  --space-4:   12px;
+  --space-5:   14px;
+  --space-6:   16px;
+  --space-7:   18px;
+  --space-8:   22px;
+  --space-9:   26px;
+  --space-10:  32px;
+
+  /* ── Border ── */
+  --border-width:        0.8px;
+  --border-width-active: 2.5px;
+  --border-width-section: 3px;
+
+  --radius-xs:   3px;   /* 배지, 태그 */
+  --radius-sm:   4px;   /* 버튼, 페이지네이션 */
+  --radius-md:   5px;   /* 인풋, 버튼 */
+  --radius-lg:   8px;   /* Asset 카드 */
+  --radius-xl:   10px;  /* 대시보드 카드 */
+  --radius-full: 9999px;
+
+  /* ── Shadow ── */
+  --shadow-card:    0px 2px 8px rgba(44,24,90,0.08);
+  --shadow-topnav:  0 1px 5px rgba(44,24,90,0.05);
+
+  /* ── Layout ── */
+  --sidebar-expanded:   188px;
+  --sidebar-collapsed:  56px;
+  --sidebar-transition: width 0.22s ease;
+  --topnav-height:      44px;
+  --summary-bar-height: auto;
+  --filter-panel-width: 178px;
+  --content-gap:        12px;
+}
+```
+
+---
+
+## 11. Tailwind Config
+
+```js
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        pretendard: ['Pretendard', 'Apple SD Gothic Neo', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+      },
+      colors: {
+        accent: {
+          DEFAULT: '#7c4dff',
+          faded:   'rgba(124,77,255,0.1)',
+          border:  'rgba(124,77,255,0.25)',
+        },
+        sidebar: {
+          bg:           '#1e0f44',
+          border:       'rgba(255,255,255,0.07)',
+          'nav-active': 'rgba(124,77,255,0.12)',
+        },
+        danger:  { DEFAULT: '#e53e3e', bg: 'rgba(229,62,62,0.09)' },
+        warning: { DEFAULT: '#d97706', bg: 'rgba(217,119,6,0.09)' },
+        success: { DEFAULT: '#059669', bg: 'rgba(5,150,105,0.09)' },
+        info:    { DEFAULT: '#0891b2', bg: 'rgba(8,145,178,0.09)' },
+        'sev-high': { DEFAULT: '#dd6b20', bg: 'rgba(221,107,32,0.09)' },
+        surface: {
+          DEFAULT: '#ffffff',
+          subtle:  'rgba(246,246,246,0.6)',
+          bg:      '#f0eef8',
+          code:    '#0f172b',
+        },
+        text: {
+          primary:   '#2d2240',
+          secondary: '#5a5870',
+          muted:     '#9b99a8',
+          hint:      '#b0a8be',
+          inverted:  '#ffffff',
+        },
+        border: {
+          DEFAULT: 'rgba(0,0,0,0.07)',
+          mid:     'rgba(0,0,0,0.1)',
+        },
+        chart: {
+          1: '#7c4dff',
+          2: '#06b6d4',
+          3: '#f59e0b',
+          4: '#f43f5e',
+          5: '#10b981',
+        },
+      },
+      fontSize: {
+        'xs':   ['8.5px',  { lineHeight: '14px' }],
+        'sm':   ['9.5px',  { lineHeight: '14px' }],
+        'base': ['10.5px', { lineHeight: '16px' }],
+        'md':   ['11.5px', { lineHeight: '18px' }],
+        'lg':   ['12px',   { lineHeight: '18px' }],
+        'xl':   ['17px',   { lineHeight: '24px' }],
+        '2xl':  ['19px',   { lineHeight: '26px' }],
+      },
+      spacing: {
+        '1': '4px',
+        '2': '8px',
+        '3': '12px',
+        '4': '16px',
+        '5': '18px',
+        '6': '22px',
+        '8': '28px',
+      },
+      borderRadius: {
+        'xs':   '3px',
+        'sm':   '4px',
+        'md':   '5px',
+        'lg':   '8px',
+        'xl':   '10px',
+        'full': '9999px',
+      },
+      borderWidth: {
+        DEFAULT: '0.8px',
+        'active': '2.5px',
+      },
+      boxShadow: {
+        'card':   '0px 2px 8px rgba(44,24,90,0.08)',
+        'topnav': '0 1px 5px rgba(44,24,90,0.05)',
+      },
+      width: {
+        'sidebar':          '188px',
+        'sidebar-collapsed':'56px',
+        'filter-panel':     '178px',
+      },
+      height: {
+        'topnav': '44px',
+      },
+    },
+  },
+};
+```
+
+---
+
+*이 문서는 Figma MCP + UI 스크린샷 분석(대시보드, ASM > Asset 페이지)을 통해 추출되었습니다.*
+*파일 키: `B8YFJGtjGOkusfJJJz954x` | 최종 업데이트: 2026-05-26*
+
+---
+
+## 8. 대시보드 콘텐츠 영역
+
+> 실제 QUAXAR 대시보드 화면 스크린샷을 기반으로 분석한 콘텐츠 영역 규격입니다.
+
+---
+
+### 8.1 Summary Bar
+
+상단 고정 가로 요약 바. 전체 현황을 한눈에 보여주는 핵심 지표 모음.
+
+**레이아웃**
+```
+┌──────────────────────────────────────────────────────────┐
+│ [Risk Factor Open] [RF Monitoring] [Threat Actor] ...     │  ← 가로 스크롤
+└──────────────────────────────────────────────────────────┘
+```
+
+- 배경: `#ffffff`
+- 보더: `0.8px solid rgba(0,0,0,0.07)` (하단)
+- 패딩: `10px 22px`
+- 아이템 간격: `gap: 24px`
+- 가로 스크롤: `overflow-x: auto`, 스크롤바 숨김
+
+**Summary Item 구조**
+```
+┌──────────────────────┐
+│ [아이콘]  레이블       │
+│ 숫자 값   +증감 뱃지  │
+│ [하위 분류 뱃지들]     │  ← 선택적
+└──────────────────────┘
+```
+
+| 속성 | 값 |
+|------|-----|
+| 아이콘 크기 | 16px, Tabler outline |
+| 레이블 | 9px, `rgba(0,0,0,0.45)`, uppercase, letter-spacing 0.05em |
+| 숫자 | 20px, font-weight 700, `#2d2240` |
+| 구분선 | `1px solid rgba(0,0,0,0.07)` (우측) |
+| 최소 너비 | 100px per item |
+
+**Summary Bar 항목 목록**
+
+| 항목 | 아이콘 | 설명 |
+|------|--------|------|
+| Risk Factor Open Status | `ti-shield-half` | 오픈 건수 + 심각도 분류 뱃지 |
+| Risk Factor Monitoring | `ti-activity` | 모니터링 건수 |
+| Threat Actor Active | `ti-user-circle` | 활성 위협 액터 수 |
+| Threat Actor Attack | `ti-bolt` | 공격 탐지 수 |
+| Account Activity | `ti-key` | 계정 활동 건수 + 스파크라인 |
+| Dashboard Activity | `ti-chart-bar` | 대시보드 활동 수 + 미니 차트 |
+| Total User | `ti-users` | 전체 사용자 수 |
+
+---
+
+### 8.2 KPI Trend Card
+
+대시보드 전반에 걸쳐 반복되는 **핵심 지표 + 트렌드 차트 내장 카드**. Vulnerability / IoC / Domain / Certificate 등 다양한 섹션에서 사용.
+
+**구조**
+```
+┌────────────────────────────────┐
+│ 레이블           ↑ 증감 뱃지    │
+│ 큰 숫자   부제목 (예: 기간)      │
+│ ────────────────────────────── │
+│  [Bar Chart / Sparkline]       │
+└────────────────────────────────┘
+```
+
+**스타일**
+
+| 속성 | 값 |
+|------|-----|
+| 배경 | `#ffffff` |
+| 보더 | `0.8px solid rgba(0,0,0,0.07)` |
+| Border Radius | 10px |
+| 패딩 | `14px 16px` |
+| 상단 컬러 바 | 3px, 섹션별 색상 |
+
+**KPI 영역**
+
+| 요소 | 스타일 |
+|------|--------|
+| 레이블 | 9.5px, font-weight 600, `#7a6e8a`, uppercase |
+| 숫자 | 22~26px, font-weight 700, `#2d2240` |
+| 증감 뱃지 | 9.5px, 색상은 Semantic 컬러, `border-radius: 4px`, `padding: 1px 6px` |
+| 기간 표시 | 9px, `#b0a8be`, 숫자 우측 또는 하단 |
+
+**차트 영역**
+- 높이: 60~80px (compact) / 120~140px (standard)
+- 차트 유형: Bar (기본) / Line (트렌드)
+- 축 레이블: 9px, `#b0a8be`
+- 격자선: `rgba(0,0,0,0.04)`
+
+**증감 뱃지 색상 규칙**
+
+| 방향 | 색상 | 배경 |
+|------|------|------|
+| 증가 (위험) | `#e53e3e` | `rgba(229,62,62,0.09)` |
+| 감소 (양호) | `#059669` | `rgba(5,150,105,0.09)` |
+| 중립 | `#7a6e8a` | `rgba(0,0,0,0.06)` |
+
+---
+
+### 8.3 Risk Factor Section
+
+**레이아웃: 3열 그리드**
+```
+[Open Status 도넛] [Detected Trend 라인] [Closed Force 바]
+[Open Status 2]   [Detected Form 스택바] [Closed Form 바]
+[Resource RF 리스트]         [Closed RF 리스트]
+[Claim Status 도넛] [Detected Trend 바] [Detected Risk Factor]
+```
+
+#### Risk Factor Open Status (도넛 차트 카드)
+
+| 속성 | 값 |
+|------|-----|
+| 차트 유형 | Donut (innerRadius: 50%, outerRadius: 75%) |
+| 중앙 텍스트 | 총 건수, font-weight 700, 18px |
+| 범례 위치 | 우측 수직 리스트 |
+| 범례 항목 | 색상 닷(6px) + 레이블 + 수치 |
+
+**심각도별 색상**
+
+| 등급 | 색상 |
+|------|------|
+| Critical | `#e53e3e` |
+| High | `#dd6b20` |
+| Medium | `#d97706` |
+| Low | `#059669` |
+| Info | `#7c4dff` |
+
+#### Risk Factor Detected Trend (복합 차트)
+
+- 유형: Line + Bar 혼합
+- X축: 날짜
+- Bar: 등급별 스택
+- Line: 총계 오버레이
+- 범례: 상단 또는 우측
+
+#### Risk Factor Form (스택 바 차트)
+
+- 유형: Stacked Bar (horizontal or vertical)
+- 색상: 심각도별 Semantic 컬러
+- 툴팁: 등급별 수치 표시
+
+#### Resource / Closed Risk Factor (리스트 카드)
+
+```
+┌─────────────────────────────────────────────────┐
+│ Resource Risk Factor  [더보기 →]                  │
+├─────────────────────────────────────────────────┤
+│ [Critical] 제목 텍스트              날짜 시간     │
+│ 설명 텍스트 (1~2줄, 말줄임)                        │
+│ Asset: value  Score: value  Start: date          │
+├─────────────────────────────────────────────────┤
+│ (반복)                                           │
+└─────────────────────────────────────────────────┘
+```
+
+| 요소 | 스타일 |
+|------|--------|
+| 행 높이 | auto (패딩 10px 상하) |
+| 행 구분선 | `0.8px solid rgba(0,0,0,0.06)` |
+| 제목 | 11px, font-weight 500, `#2d2240` |
+| 설명 | 10px, `#7a6e8a`, 2줄 말줄임 |
+| 메타 정보 | 9.5px, `#b0a8be` |
+| 날짜 | 9.5px, `#b0a8be`, 우측 정렬 |
+
+#### Risk Factor Claim Status (도넛 + 리스트 조합)
+
+- 도넛 차트 (좌) + 항목별 수치 리스트 (우)
+- 중앙 숫자: 총 건수 강조
+
+---
+
+### 8.4 Report / Intelligence Section
+
+**레이아웃: 3열**
+```
+[Talon Report KPI+Bar] [Cyber Digest 리스트] [CVE TSS + Namespace Tag]
+[Digest 리스트]         [CVE TSS Rating 테이블]  [Namespace Tag 클라우드]
+```
+
+#### Talon Report (KPI + Bar)
+
+- KPI Trend Card 형식과 동일
+- 상단 컬러 바: `#7c4dff`
+
+#### Cyber Threat Digest / Digest (리스트 카드)
+
+```
+┌────────────────────────────────────────────┐
+│ Cyber Threat Digest      [날짜 필터]         │
+├────────────────────────────────────────────┤
+│ [Critical] 기사 제목 (2줄 말줄임)  날짜     │
+│ [High]     기사 제목               날짜     │
+└────────────────────────────────────────────┘
+```
+
+| 요소 | 스타일 |
+|------|--------|
+| Severity Badge | 기존 Badge 규격과 동일 |
+| 제목 | 10.5px, font-weight 500, `#2d2240` |
+| 날짜 | 9px, `#b0a8be`, 우측 |
+| 행 패딩 | `8px 16px` |
+| 호버 | `background: rgba(0,0,0,0.02)`, cursor pointer |
+
+#### CVE TSS Rating 요약
+
+```
+┌──────────────────┐
+│ Score: 9.8       │
+│ [████░░] Critical│
+│ CVE-XXXX-YYYY    │
+└──────────────────┘
+```
+
+- 점수: 24px, font-weight 700
+- 등급 색상: Severity 컬러 그대로 사용
+
+#### CVE TSS Rating 상세 테이블
+
+| 컬럼 | 너비 | 정렬 |
+|------|------|------|
+| CVE ID | 140px | 좌 |
+| 제품/서비스명 | flex-1 | 좌 |
+| TSS Score | 60px | 우 |
+| 등급 Badge | 80px | 중앙 |
+| 날짜 | 90px | 우 |
+
+- Score 색상 규칙: 9.0+ → `#e53e3e`, 7.0~8.9 → `#dd6b20`, 5.0~6.9 → `#d97706`, 이하 → `#059669`
+
+#### Namespace Tag (태그 클라우드)
+
+```css
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px 16px;
+}
+.tag-item {
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 20px;         /* pill 형태 */
+  background: rgba(124,77,255,0.08);
+  color: #7c4dff;
+  border: 0.8px solid rgba(124,77,255,0.2);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.tag-item:hover {
+  background: rgba(124,77,255,0.16);
+}
+```
+
+---
+
+### 8.5 Trend Charts Section
+
+**레이아웃: 3열**
+```
+[Vulnerability Trend] [IoC Trend] [CVE TSS Rating 테이블]
+[CVE Monitor 테이블]  [ATP Mitre 리스트]
+```
+
+#### Vulnerability Trend / IoC Trend
+
+- KPI Trend Card 형식
+- 차트: Bar Chart (월별)
+- 상단 컬러 바: Vulnerability → `#d97706` / IoC → `#7c4dff`
+
+#### CVE Monitor (테이블 카드)
+
+```
+┌──────────────────────────────────────────────────┐
+│ CVE Monitor    2024-03-24 ~ 2024-07-23  [필터]    │
+├──────────┬──────────────┬──────────┬─────────────┤
+│ URL      │ 발견일        │ Discover │ Intrusion   │
+├──────────┼──────────────┼──────────┼─────────────┤
+│ cve-...  │ 2024-05-19   │ 23       │ 1           │
+└──────────┴──────────────┴──────────┴─────────────┘
+```
+
+- 링크 컬럼: `color: #7c4dff`, underline on hover
+- 숫자 컬럼: Inter Regular, `#2d2240`
+
+#### ATP Mitre (리스트 카드)
+
+```
+┌──────────────────────────────────────┐
+│ ATP Mitre                             │
+├──────────────────────────────────────┤
+│ 기법 이름          Discover Intrusion │
+│ Phishing            23       1        │
+│ Command&Control     18       0        │
+└──────────────────────────────────────┘
+```
+
+| 요소 | 스타일 |
+|------|--------|
+| 기법명 | 10.5px, `#2d2240` |
+| 수치 | Inter Regular 10.5px, `#2d2240` |
+| 헤더 | 9px, uppercase, `#7a6e8a` |
+
+---
+
+### 8.6 Digital Risk Protection Section
+
+**레이아웃**
+```
+[Account Take-Over Trend] [Brand Abuse Site Trend] [Card Leakage Trend]
+[DDW Detection 리스트]    [Telegram Detection 리스트] [DDW/Telegram Mitre]
+[Recent Take-Over Scan Status 테이블]
+[Telegram Top 5 리스트]   [Telegram Activity 리스트]  [Factorease Activity]
+```
+
+#### Take-Over / Brand Abuse / Card Leakage Trend
+
+- KPI Trend Card 형식
+- 상단 컬러 바: Take-Over → `#e53e3e` / Brand Abuse → `#dd6b20` / Card Leakage → `#d97706`
+
+#### DDW / Telegram Detection (리스트 카드)
+
+```
+┌─────────────────────────────────────────────────┐
+│ DDW Detection              날짜 범위   [필터]     │
+├─────────────────────────────────────────────────┤
+│ [Brand Compromised] 카테고리        2024-07-22   │
+│ 탐지 내용 요약 텍스트 (2줄 말줄임)                │
+│ Source: value                                    │
+├─────────────────────────────────────────────────┤
+│ (반복)                                           │
+└─────────────────────────────────────────────────┘
+```
+
+- 카테고리 Badge: `border-radius: 3px`, 배경 컬러는 카테고리별 구분
+- Source 메타: 9px, `#b0a8be`
+
+#### Recent Take-Over Scan Status (테이블)
+
+| 컬럼 | 설명 |
+|------|------|
+| 날짜 | 스캔 일시 |
+| Exposed | 노출 URL 또는 계정 |
+| Threat Actor | 위협 액터명 |
+| Activity | 활동 유형 |
+| Score | 수치 (색상 코딩) |
+
+#### Telegram Top 5 / Telegram Activity (리스트)
+
+- 간결한 리스트 형태
+- 항목: 채널/키워드 + 건수 + 날짜
+- 건수: Inter Bold, `#2d2240`
+
+#### Factorease Activity
+
+- 리스트 형태 (최신 활동 타임라인)
+- 아이콘 + 내용 + 날짜 구조
+
+---
+
+### 8.7 Attack Surface Section
+
+**레이아웃**
+```
+[Asset Root Log 리스트]
+[Domain Trend KPI+Bar] [Certificate Trend KPI+Bar]
+[Critical Asset CVE 테이블] [Top Port Scan 리스트]
+[Report Links] [Tag 클라우드]
+```
+
+#### Asset Root Log (리스트 카드)
+
+```
+┌─────────────────────────────────────────────────┐
+│ Asset Root Log                     날짜 범위      │
+├─────────────────────────────────────────────────┤
+│ 2024-05-19  192.168.1.1  /path/to/resource      │
+│ 2024-05-18  domain.com   /api/endpoint          │
+└─────────────────────────────────────────────────┘
+```
+
+- IP/도메인: Inter Regular 10.5px, `#7c4dff` (링크 스타일)
+- 경로: 10px, `#7a6e8a`
+
+#### Domain / Certificate Trend
+
+- KPI Trend Card 형식
+- 상단 컬러 바: Domain → `#06b6d4` / Certificate → `#7c4dff`
+
+#### Critical Asset CVE (테이블)
+
+| 컬럼 | 설명 |
+|------|------|
+| CVE ID | 링크 스타일, `#7c4dff` |
+| Score | 색상 코딩 (Severity 기준) |
+| 영향 자산 | 도메인/IP |
+| 발견일 | `#b0a8be` |
+
+#### Top Port Scan (리스트)
+
+```
+┌───────────────────┐
+│ Top Port Scan      │
+├─────────┬─────────┤
+│ 포트번호 │ 스캔 횟수 │
+│ 443     │  1,234  │
+│ 80      │    987  │
+└─────────┴─────────┘
+```
+
+- 포트: Inter Bold 11px, `#2d2240`
+- 횟수: Inter Regular 11px, `#7a6e8a`
+
+#### Report Links (카드)
+
+- 날짜별 리포트 링크 리스트
+- 링크: `color: #7c4dff`, hover underline
+- 날짜: `#b0a8be`
+
+#### Tag Cloud (섹션 하단)
+
+- Namespace Tag와 동일한 pill 스타일 사용
+- 배경: `rgba(124,77,255,0.06)`
+
+---
+
+### 8.8 공통 패턴
+
+#### Empty State
+
+콘텐츠가 없는 경우의 빈 화면 표시 패턴.
+
+```
+┌──────────────────────────┐
+│                           │
+│    [아이콘 32px]           │
+│    안내 텍스트              │
+│    (보조 설명 선택적)        │
+│                           │
+└──────────────────────────┘
+```
+
+```css
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: #b0a8be;
+}
+.empty-state-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+  opacity: 0.5;
+}
+.empty-state-text {
+  font-size: 11px;
+  color: #b0a8be;
+  text-align: center;
+}
+```
+
+#### Section Header (카드 내부)
+
+모든 카드의 상단 헤더 공통 패턴.
+
+```
+┌────────────────────────────────────────┐
+│ 섹션 제목        [날짜 범위] [더보기 →]  │
+│ 부제목 (선택)                           │
+├────────────────────────────────────────┤
+```
+
+| 요소 | 스타일 |
+|------|--------|
+| 제목 | Pretendard Bold 12px, `#2d2240` |
+| 부제목 | 9.5px, `#7a6e8a` |
+| 날짜 범위 | 9px, `#b0a8be`, `border: 0.8px solid rgba(0,0,0,0.08)`, `border-radius: 4px`, `padding: 2px 8px` |
+| 더보기 버튼 | 9.5px, `color: #7c4dff`, `border: 0.8px solid #7c4dff`, `border-radius: 4px`, `padding: 3px 9px` |
+| 헤더 보더 | `border-bottom: 0.8px solid rgba(0,0,0,0.07)` |
+| 헤더 패딩 | `12px 16px` |
+
+#### 날짜 범위 필터 (Date Range Chip)
+
+```css
+.date-range {
+  font-size: 9px;
+  color: #b0a8be;
+  border: 0.8px solid rgba(0,0,0,0.08);
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+```
+
+#### 더보기 링크 버튼
+
+```css
+.view-more {
+  font-size: 9.5px;
+  color: #7c4dff;
+  border: 0.8px solid #7c4dff;
+  border-radius: 4px;
+  padding: 3px 9px;
+  background: rgba(124,77,255,0.08);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.view-more:hover {
+  background: rgba(124,77,255,0.16);
+}
+```
+
+#### 대시보드 그리드 시스템
+
+콘텐츠 영역의 기본 그리드 단위.
+
+| 그리드 | 컬럼 수 | 용도 |
+|--------|---------|------|
+| `grid-1` | 1 | 전체 너비 (테이블, 리스트) |
+| `grid-2` | 2 | 좌우 분할 |
+| `grid-3` | 3 | 3열 KPI 카드, 차트 |
+| `grid-4` | 4 | Summary Bar 내 아이템 |
+
+```css
+.dashboard-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.dashboard-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+```
+
+---
+
+## 변경 이력
+
+| 날짜 | 버전 | 변경 내용 |
+|------|------|----------|
+| 2026-05-22 | v1.0 | Figma MCP 자동 추출 초안 |
+| 2026-05-22 | v1.1 | QUAXAR 브랜드 반영, 사이드바 아코디언 규격 추가 |
+| 2026-05-22 | v1.2 | 이모지 → Tabler Icons 교체, 사이드바 Collapsed 규격 추가 |
+| 2026-05-23 | v2.0 | 대시보드 스크린샷 분석 반영 — Summary Bar, KPI Trend Card, Risk Factor / Report / DRP / ASM 섹션 신규 추가 |
+| 2026-05-26 | v2.1 | ASM > Asset 페이지 반영 — Filter Panel, Search Bar, Asset Card (Normal / Expanded / N/A / Inactive) 규격 추가 |
+| 2026-05-26 | v2.2 | TopNav 페이지별 구분 명세, Badge 4종 체계 정리, Button 타입 실제 구현 기준 업데이트, Card 3종 분리, Chart 팔레트 + 설정 최신화, CSS 변수 전면 교체, 구버전 토큰 제거 |
